@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\RefreshApiTokenCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        //$schedule->command(RefreshApiTokenCommand::class)->twiceMonthly(1, 16, '01:00');
+        $schedule->command(RefreshApiTokenCommand::class)->everyMinute();
     }
 
     /**
@@ -34,7 +36,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

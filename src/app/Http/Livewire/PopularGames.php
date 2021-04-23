@@ -3,12 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Config;
-use App\Helpers\RefreshIgdbToken;
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class PopularGames extends Component
@@ -19,12 +16,6 @@ class PopularGames extends Component
     public function load()
     {
         $popularGamesUnformatted = $this->getPopularGamesUnformatted();
-
-        if (Arr::exists($popularGamesUnformatted, 'message') && Str::contains($popularGamesUnformatted['message'], 'Failure')) {
-            RefreshIgdbToken::refresh();
-            $popularGamesUnformatted = $this->getPopularGamesUnformatted();
-        }
-
         $this->popularGames = $this->formatForView($popularGamesUnformatted);
         $this->mostPopularGames = array_splice($this->popularGames, 0, 2);
     }
