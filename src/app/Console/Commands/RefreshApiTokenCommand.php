@@ -41,6 +41,7 @@ class RefreshApiTokenCommand extends Command
     {
         RefreshIgdbToken::refresh();
         $this->info('Token was refreshed!');
+
         return 1;
     }
 }
